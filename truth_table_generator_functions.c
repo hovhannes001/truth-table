@@ -150,20 +150,23 @@ int scope_function(char *expression) {
 
 }
 
-void variables_fill(Variable *variables,int count) {
+void variables_fill(Variable *variables, int count) {
     int num = 2;
-    for(int i = 1;i < pow(2,count); i *= 2) {
-        variables[i -1].value = (((int)pow(2,i)- 1) << num) | ((int)pow(2,i) - 1);
-        for(int j = 0;j < ((pow(2,count) / num))  ;j++) { 
-            if(j == (pow(2,count) / num)-1) {
-                variables[i-1].value >>= i;
+    int index = 0;
+    for (int i = 1; i < pow(2, count); i *= 2) {
+        variables[index].value = (((int)pow(2, i) - 1) << num) | ((int)pow(2, i) - 1);
+        for (int j = 0; j < ((pow(2, count) / num)); j++) { 
+            if (j == (pow(2, count) / num) - 1) {
+                variables[index].value >>= i;
                 break;
             }
-            variables[i-1].value = variables[i-1].value << num;
-            variables[i-1].value |= ((int)pow(2,i) - 1);
+            variables[index].value = variables[index].value << num;
+            variables[index].value |= ((int)pow(2, i) - 1);
         }
         num *= 2;
+        index++;
     }
+
 }
     
 void swap_integer(int *a,int * b) {
